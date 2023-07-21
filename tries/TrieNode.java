@@ -5,12 +5,12 @@ public class TrieNode {
     public boolean isEndWord;
 
     public TrieNode() {
-      this.TrieNodenulll);
+      this('$');
     }
 
     public TrieNode(char value) {
         this.value = value;
-        this children = null;
+        this.children = null;
         this.siblings = null;
         this.value = value;
         this.isEndWord = false;

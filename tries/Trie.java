@@ -1,4 +1,6 @@
-public class Trie {
+package trie;
+
+public class Trie implements TDATries{
   public TrieNode root;
 
   public Trie() {

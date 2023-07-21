@@ -1,3 +1,5 @@
+package trie;
+
 public class TrieNode {
     public char value;
     public TrieNode[] children;

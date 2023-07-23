@@ -56,4 +56,24 @@ public class Trie {
         }
         return current.isEndOfWord;
     }
+
+    // Reemplazar palabras en un texto
+    public String replace(String text, String srch, String replace) {
+        //cada palabra del texto en un arreglo
+        String[] words = text.split("\\s+");
+        StringBuilder result = new StringBuilder();
+        //agregamos al trie la palabra a buscar
+        this.insert(srch); 
+        //recorremos en cada palabra
+        for (String word : words) {
+            if (search(word)) {
+                // Reemplazar por la palabra deseada
+                result.append(replace + " ");
+            } else {
+                // no se remplaza nada
+                result.append(word).append(" ");
+            }
+        }
+        return result.toString();
+    }
 }

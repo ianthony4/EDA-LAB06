@@ -32,4 +32,28 @@ public class Trie {
         //el último nodo en el camino representa el final de la palabra
         current.isEndOfWord = true;
     }
+
+    // Buscar una palabra en el trie
+    public boolean search(String word) {
+        //obtener nodo raiz
+        TrieNode current = root;
+        //recorrer la palabra
+        for (int i = 0; i < word.length(); i++) {
+            //convertir a minuscula
+            char ch = Character.toLowerCase(word.charAt(i));
+            //calculo del indice
+            int index = ch - 'a';
+            if (index < 0 || index >= 26) {
+                // char invalido, palabra no presente en el Trie
+                return false; 
+            }
+            //verificar existencia del nodo
+            if (current.children[index] == null) {
+                return false;
+            }
+            //actualizar nodo actual
+            current = current.children[index];
+        }
+        return current.isEndOfWord;
+    }
 }

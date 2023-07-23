@@ -1,18 +1,14 @@
-public class TrieNode {
-    public char value;
-    public TrieNode[] children;
-    public TrieNode[] siblings;
-    public boolean isEndWord;
+class TrieNode {
 
+    //verifica que es el fin de la palabra
+    boolean isEndOfWord;
+
+    TrieNode[] children;
+
+    //constructor
     public TrieNode() {
-      this.TrieNodenulll);
+        this.isEndOfWord = false;
+        this.children = new TrieNode[26];
     }
 
-    public TrieNode(char value) {
-        this.value = value;
-        this children = null;
-        this.siblings = null;
-        this.value = value;
-        this.isEndWord = false;
-    }
 }

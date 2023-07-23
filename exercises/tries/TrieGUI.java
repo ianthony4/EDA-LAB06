@@ -1,159 +1,145 @@
-import javax.swing.JOptionPane;
-public class TrieGUI extends javax.swing.JFrame {
+import javax.swing.*;
 
-    /**
-     * Creates new form TrieGUI
-     */
-    public TrieGUI() {
-        initComponents();
-    }
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-    
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+public class TrieGUI {
+	private Trie trieStr;
+	private JTextArea textArea;
+	private String strText;
+	private JTextField textSearch;
+	private JTextField textReplace;
 
-        BotonListo1 = new javax.swing.JButton();
-        BotonCancelar = new javax.swing.JButton();
-        labelIngreseTexto = new javax.swing.JLabel();
-        textField = new javax.swing.JTextField();
+	public TrieGUI() {
+		trieStr = new Trie();
+	}
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+	public void showGUI() {
+		JFrame frame = new JFrame("Buscar y Reemplazar");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        BotonListo1.setText("Listo");
-        BotonListo1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotonListo1MouseClicked(evt);
-            }
-        });
-        BotonListo1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonListo1ActionPerformed(evt);
-            }
-        });
+		JPanel panel = new JPanel(new BorderLayout());
 
-        BotonCancelar.setText("Cancelar");
-        BotonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotonCancelarMouseClicked(evt);
-            }
-        });
-        BotonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonCancelarActionPerformed(evt);
-            }
-        });
+		panel.add(createFormPanel(), BorderLayout.NORTH);
+		panel.add(createButtonPanel(), BorderLayout.SOUTH);
 
-        labelIngreseTexto.setText("Ingrese texto");
+		frame.getContentPane().add(panel);
+		frame.pack();
+		frame.setVisible(true);
+	}
 
-        textField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldActionPerformed(evt);
-            }
-        });
+	public JPanel createFormPanel() {
+		JPanel panel = new JPanel(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.anchor = GridBagConstraints.WEST;
+		constraints.insets = new Insets(5, 5, 5, 5);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
-                                .addComponent(BotonListo1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BotonCancelar)))
-                        .addGap(29, 29, 29))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelIngreseTexto)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(labelIngreseTexto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotonCancelar)
-                    .addComponent(BotonListo1))
-                .addGap(19, 19, 19))
-        );
+		JLabel textLabel = new JLabel("Texto:");
+		panel.add(textLabel, constraints);
 
-        pack();
-    }// </editor-fold>                        
+		constraints.gridx = 1;
+		textArea = new JTextArea(5, 30);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		panel.add(scrollPane, constraints);
 
-    private void textFieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
 
-    private void BotonListo1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+		constraints.gridy = 1;
+		constraints.gridx = 0;
+		JLabel searchLabel = new JLabel("Buscar:");
+		panel.add(searchLabel, constraints);
 
-    private void BotonCancelarActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
+		constraints.gridx = 1;
+		textSearch = new JTextField(10);
+		panel.add(textSearch, constraints);
 
-    private void BotonCancelarMouseClicked(java.awt.event.MouseEvent evt) {                                           
-        System.exit(0);
-    }                                          
+		constraints.gridy = 2;
+		constraints.gridx = 0;
+		JLabel replaceLabel = new JLabel("Reemplazar por:");
+		panel.add(replaceLabel, constraints);
 
-    private void BotonListo1MouseClicked(java.awt.event.MouseEvent evt) {                                         
-        String elTexto = textField.getText();
-        if (elTexto.isEmpty() == false) {
-            Trie trie = new Trie();
+		constraints.gridx = 1;
+		textReplace = new JTextField(10);
+		panel.add(textReplace, constraints);
 
-        } else {
-            JOptionPane.showMessageDialog(null, "Texto Vacio, ingrese texto");
-        }
-    }                                        
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TrieGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TrieGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TrieGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TrieGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+		return panel;
+	}
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TrieGUI().setVisible(true);
-            }
-        });
-    }
+	public JPanel createButtonPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout());
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton BotonCancelar;
-    private javax.swing.JButton BotonListo1;
-    private javax.swing.JLabel labelIngreseTexto;
-    private javax.swing.JTextField textField;
-    // End of variables declaration                   
+		JButton enterTextButton = new JButton("Ingresar Texto");
+		enterTextButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ingresarTexto();
+			}
+		});
+		panel.add(enterTextButton);
+
+		JButton searchButton = new JButton("Buscar");
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscarTexto();
+			}
+		});
+		panel.add(searchButton);
+
+		JButton replaceButton = new JButton("Reemplazar");
+		replaceButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reemplazarTexto();
+			}
+		});
+		panel.add(replaceButton);
+
+		JButton cancelarButton = new JButton("Cancelar");
+		cancelarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelarOperacion();
+			}
+		});
+		panel.add(cancelarButton);
+
+		return panel;
+	}
+
+	private void ingresarTexto() {
+		strText = textArea.getText();
+		loadText();
+	}
+
+	private void buscarTexto() {
+
+	}
+
+	private void reemplazarTexto() {
+		// Obtener strings
+		strText = textArea.getText();
+		String strSearch = textSearch.getText();
+		String strReplace = textReplace.getText();
+
+		strText = trieStr.replace(strText, strSearch, strReplace);
+		
+		loadText();
+	}
+
+	private void cancelarOperacion() {
+		textArea.setText("");
+		textSearch.setText("");
+		textReplace.setText("");
+	}
+
+	private void loadText() {
+		textArea.setText(strText);
+	}
+
+	public static void main(String[] args) {
+		TrieGUI programa = new TrieGUI();
+		programa.showGUI();
+	}
+
 }

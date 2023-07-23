@@ -42,6 +42,8 @@ public class TrieGUI {
 
 		constraints.gridx = 1;
 		textArea = new JTextArea(5, 30);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		panel.add(scrollPane, constraints);
 
@@ -80,14 +82,6 @@ public class TrieGUI {
 		});
 		panel.add(enterTextButton);
 
-		JButton searchButton = new JButton("Buscar");
-		searchButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				buscarTexto();
-			}
-		});
-		panel.add(searchButton);
-
 		JButton replaceButton = new JButton("Reemplazar");
 		replaceButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,10 +104,6 @@ public class TrieGUI {
 	private void ingresarTexto() {
 		strText = textArea.getText();
 		loadText();
-	}
-
-	private void buscarTexto() {
-
 	}
 
 	private void reemplazarTexto() {

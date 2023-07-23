@@ -4,4 +4,32 @@ public class Trie {
     public Trie() {
         root = new TrieNode();
     }
+
+    // Insertar una palabra en el trie
+    public void insert(String word) {
+        //El metodo comienza con el nodo raiz del Trie, que se almacena en root.
+        TrieNode current = root;
+        //recorremos cada letra de la palabra
+        for (int i = 0; i < word.length(); i++) {
+            //convertir en minuscula
+            char ch = Character.toLowerCase(word.charAt(i));
+            //calcular el índice restando el valor ASCII de 'a'
+            int index = ch - 'a'; 
+            if (index < 0 || index >= 26) {
+                //Ignorar caracteres que no sean letras del alfabeto inglés (ñ)
+                continue; 
+            }
+            //Si el índice calculado es válido, el método verifica si hay un nodo hijo correspondiente
+            //en la posición del índice actual en el arreglo children
+            if (current.children[index] == null) {
+                //Si el nodo no existe, crea un nuevo nodo en esa posición.
+                current.children[index] = new TrieNode();
+            }
+            //actualizar el nodo actual
+            current = current.children[index];
+        }
+        //Despues de recorrer toda la palabra
+        //el último nodo en el camino representa el final de la palabra
+        current.isEndOfWord = true;
+    }
 }
